@@ -50,7 +50,7 @@
     gap: 8px;
 }
 
-.control-group>label {
+.control-group-label {
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
