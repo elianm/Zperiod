@@ -1,4 +1,5 @@
 
+import logoUrl from "../../logo.svg";
 import { t, setLang } from "./langController.js";
 
 /**
@@ -191,7 +192,7 @@ export function initOnboardingFlow() {
 
     <div id="animation-stage" style="display:flex; flex-direction:column; align-items:center;">
         <div class="logo-container" id="onboarding-logo">
-          <img src="logo.svg" class="logo-z" alt="Z">
+          <img src="${logoUrl}" class="logo-z" alt="Z">
           <span class="logo-text">Zperiod</span>
         </div>
 
