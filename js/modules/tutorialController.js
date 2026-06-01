@@ -1,12 +1,12 @@
+import { driver } from 'driver.js';
+import 'driver.js/dist/driver.css';
 import { t } from './langController.js';
 
 function ensureDriverTutorialAssets() {
     if (!document.getElementById('driver-css')) {
-        const link = document.createElement('link');
-        link.id = 'driver-css';
-        link.rel = 'stylesheet';
-        link.href = 'https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css';
-        document.head.appendChild(link);
+        const marker = document.createElement('meta');
+        marker.id = 'driver-css';
+        document.head.appendChild(marker);
     }
 
     if (!document.getElementById('driver-custom-zperiod')) {
@@ -116,15 +116,13 @@ export async function initElementTutorial(force = false) {
     }
 
     try {
-        // Dynamically load the module and CSS to work in both Vite and vanilla ESM environments
-        const { driver } = await import('https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.mjs');
+        ensureDriverTutorialAssets();
         
         // Ensure CSS is loaded
         if (!document.getElementById('driver-css')) {
             const link = document.createElement('link');
             link.id = 'driver-css';
             link.rel = 'stylesheet';
-            link.href = 'https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css';
             document.head.appendChild(link);
             
             // Inject custom styles for smoother animations and better rounded corners
@@ -250,13 +248,12 @@ export async function initBalancerTutorial(force = false) {
     }
 
     try {
-        const { driver } = await import('https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.mjs');
+        ensureDriverTutorialAssets();
         
         if (!document.getElementById('driver-css')) {
             const link = document.createElement('link');
             link.id = 'driver-css';
             link.rel = 'stylesheet';
-            link.href = 'https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css';
             document.head.appendChild(link);
             
             const style = document.createElement('style');
@@ -316,7 +313,7 @@ export async function initPredictorTutorial(force = false) {
     }
 
     try {
-        const { driver } = await import('https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.mjs');
+        ensureDriverTutorialAssets();
         ensureDriverTutorialAssets();
         
         startPredictorTour(driver, tutorialKey, force ? 100 : 800);
@@ -336,7 +333,7 @@ export async function initMolarMassTutorial(force = false) {
     }
 
     try {
-        const { driver } = await import('https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.mjs');
+        ensureDriverTutorialAssets();
         ensureDriverTutorialAssets();
         
         startMolarMassTour(driver, tutorialKey, force ? 100 : 800);
@@ -353,7 +350,7 @@ export async function initSolubilityTutorial(force = false) {
     }
 
     try {
-        const { driver } = await import('https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.mjs');
+        ensureDriverTutorialAssets();
         ensureDriverTutorialAssets();
 
         startSolubilityTour(driver, tutorialKey, force ? 100 : 800);
@@ -984,13 +981,12 @@ export async function initVirtualLabTutorial(force = false) {
     }
 
     try {
-        const { driver } = await import('https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.mjs');
+        ensureDriverTutorialAssets();
 
         if (!document.getElementById('driver-css')) {
             const link = document.createElement('link');
             link.id = 'driver-css';
             link.rel = 'stylesheet';
-            link.href = 'https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css';
             document.head.appendChild(link);
         }
         ensureDriverTutorialAssets();

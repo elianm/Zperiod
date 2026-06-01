@@ -13,6 +13,11 @@
         content="periodic table, interactive periodic table, chemistry elements, chemical equation balancer, balance chemical equations, empirical formula calculator, molar mass calculator, 3D atom model, chemistry learning tool, free chemistry tool, ion table, chemistry education">
     <meta name="author" content="Philip">
     <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#1e293b">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Zperiod">
     <link rel="canonical" href="https://zperiod.app/">
 
     <!-- Open Graph (Facebook, LinkedIn, Discord, Reddit) -->
@@ -70,9 +75,8 @@
     </script>
 
     <link rel="icon" type="image/svg+xml" href="logo.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/fonts.css?v=2.1.2">
     <link rel="stylesheet" href="css/base.css?v=2.1.2">
     <link rel="stylesheet" href="css/grid.css?v=2.1.2">
     <link rel="stylesheet" href="css/modal.css?v=2.1.2">
@@ -83,20 +87,63 @@
     <link rel="stylesheet" href="css/mobile-landing.css?v=2.1.8">
     <link rel="stylesheet" href="css/tool-modals/shared.css?v=2.1.2">
 
-    <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "ve9finzs2n");
-    </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S4S9V7C7VQ"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-S4S9V7C7VQ');
+        (function () {
+            const analyticsConfig = {
+                disableWhenOffline: true,
+                googleAnalytics: {
+                    measurementId: "G-S4S9V7C7VQ",
+                },
+                clarity: {
+                    projectId: "ve9finzs2n",
+                },
+            };
+            let initialized = false;
+
+            function loadScript(src) {
+                const script = document.createElement("script");
+                script.async = true;
+                script.src = src;
+                document.head.appendChild(script);
+            }
+
+            function setOfflineTrackingState(isOffline) {
+                if (!analyticsConfig.disableWhenOffline) return;
+
+                window[`ga-disable-${analyticsConfig.googleAnalytics.measurementId}`] = isOffline;
+
+                if (isOffline && typeof window.clarity === "function") {
+                    window.clarity("consent", false);
+                }
+            }
+
+            function loadOnlineServices() {
+                if (initialized || !navigator.onLine) return;
+                initialized = true;
+                setOfflineTrackingState(false);
+
+                window.clarity = window.clarity || function () {
+                    (window.clarity.q = window.clarity.q || []).push(arguments);
+                };
+                loadScript(`https://www.clarity.ms/tag/${analyticsConfig.clarity.projectId}`);
+
+                window.dataLayer = window.dataLayer || [];
+                window.gtag = window.gtag || function () {
+                    window.dataLayer.push(arguments);
+                };
+                window.gtag("js", new Date());
+                window.gtag("config", analyticsConfig.googleAnalytics.measurementId);
+                loadScript(`https://www.googletagmanager.com/gtag/js?id=${analyticsConfig.googleAnalytics.measurementId}`);
+            }
+
+            setOfflineTrackingState(!navigator.onLine);
+            loadOnlineServices();
+            window.addEventListener("offline", () => setOfflineTrackingState(true));
+            window.addEventListener("online", () => {
+                setOfflineTrackingState(false);
+                loadOnlineServices();
+            });
+        })();
     </script>
 </head>
 
