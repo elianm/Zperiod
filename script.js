@@ -1,4 +1,5 @@
 import { getChemToolContent } from "./js/modules/chemToolContent.js";
+import { injectSpeedInsights } from "@vercel/speed-insights";
 import { attachToolEventListeners } from "./js/modules/chemToolInteractions.js";
 import {
   buildPeriodicTable,
@@ -22,6 +23,10 @@ import {
   t
 } from "./js/modules/langController.js";
 import { initOnboardingFlow } from "./js/modules/onboardingController.js";
+
+if (navigator.onLine) {
+  injectSpeedInsights();
+}
 
 function isRealMobileDevice() {
   // Wide viewports (> 1024px) get the full desktop app, even on touch devices like iPad.
