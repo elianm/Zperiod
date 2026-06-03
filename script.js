@@ -1,4 +1,5 @@
 import { getChemToolContent } from "./js/modules/chemToolContent.js";
+import { inject } from "@vercel/analytics";
 import { injectSpeedInsights } from "@vercel/speed-insights";
 import { attachToolEventListeners } from "./js/modules/chemToolInteractions.js";
 import {
@@ -25,6 +26,7 @@ import {
 import { initOnboardingFlow } from "./js/modules/onboardingController.js";
 
 if (navigator.onLine) {
+  inject();
   injectSpeedInsights();
 }
 
