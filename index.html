@@ -87,64 +87,6 @@
     <link rel="stylesheet" href="css/mobile-landing.css?v=2.1.8">
     <link rel="stylesheet" href="css/tool-modals/shared.css?v=2.1.2">
 
-    <script>
-        (function () {
-            const analyticsConfig = {
-                disableWhenOffline: true,
-                googleAnalytics: {
-                    measurementId: "G-S4S9V7C7VQ",
-                },
-                clarity: {
-                    projectId: "ve9finzs2n",
-                },
-            };
-            let initialized = false;
-
-            function loadScript(src) {
-                const script = document.createElement("script");
-                script.async = true;
-                script.src = src;
-                document.head.appendChild(script);
-            }
-
-            function setOfflineTrackingState(isOffline) {
-                if (!analyticsConfig.disableWhenOffline) return;
-
-                window[`ga-disable-${analyticsConfig.googleAnalytics.measurementId}`] = isOffline;
-
-                if (isOffline && typeof window.clarity === "function") {
-                    window.clarity("consent", false);
-                }
-            }
-
-            function loadOnlineServices() {
-                if (initialized || !navigator.onLine) return;
-                initialized = true;
-                setOfflineTrackingState(false);
-
-                window.clarity = window.clarity || function () {
-                    (window.clarity.q = window.clarity.q || []).push(arguments);
-                };
-                loadScript(`https://www.clarity.ms/tag/${analyticsConfig.clarity.projectId}`);
-
-                window.dataLayer = window.dataLayer || [];
-                window.gtag = window.gtag || function () {
-                    window.dataLayer.push(arguments);
-                };
-                window.gtag("js", new Date());
-                window.gtag("config", analyticsConfig.googleAnalytics.measurementId);
-                loadScript(`https://www.googletagmanager.com/gtag/js?id=${analyticsConfig.googleAnalytics.measurementId}`);
-            }
-
-            setOfflineTrackingState(!navigator.onLine);
-            loadOnlineServices();
-            window.addEventListener("offline", () => setOfflineTrackingState(true));
-            window.addEventListener("online", () => {
-                setOfflineTrackingState(false);
-                loadOnlineServices();
-            });
-        })();
-    </script>
 </head>
 
 <body>
